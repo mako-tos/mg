@@ -207,4 +207,32 @@ export const globalStyles = css`
   body:not(.user-is-tabbing) a:focus {
     outline: none;
   }
+
+  dl {
+    dd {
+      margin-left: 1em;
+    }
+  }
+
+  .breadcrumb__list {
+    display: flex;
+    padding: 0.5em 0;
+    li + li::before {
+      content: ' ';
+      display: inline-block;
+      width: 0.5em;
+    }
+  }
+
+  .to-contact {
+    text-align: center;
+    margin: 1em;
+    a {
+      background-color: blue;
+      color: white;
+      padding: 0.5em;
+      text-decoration: none;
+      border-radius: 0.5em;
+    }
+  }
 `

@@ -12,7 +12,7 @@ const Wrapper = styled.section`
 `
 const BgImg = styled(Img)`
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   &::before {
     content: '';
@@ -23,7 +23,7 @@ const BgImg = styled(Img)`
     right: 0;
     bottom: 0;
     height: 100%;
-    width: 100%;
+    width: 100vw;
     z-index: 1;
   }
 `
@@ -34,7 +34,7 @@ const Title = styled.h1`
   text-transform: capitalize;
   font-weight: 600;
   position: absolute;
-  width: 100%;
+  width: 100vw;
   max-width: ${props => props.theme.sizes.maxWidthCentered};
   padding: 0 1rem;
   top: 50%;

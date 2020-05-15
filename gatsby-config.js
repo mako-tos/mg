@@ -17,10 +17,10 @@ try {
 
 module.exports = {
   siteMetadata: {
-    title: 'GCN',
+    title: '目黒川不動産',
     description:
-      'A starter template to build amazing static websites with Gatsby, Contentful and Netlify',
-    siteUrl: 'https://gcn.netlify.com',
+      '目黒川不動産のHPです',
+    siteUrl: 'https://www.megurogawafudosan.com',
     image: '/images/share.jpg',
     menuLinks: [
       {
@@ -100,5 +100,19 @@ module.exports = {
       },
     },
     'gatsby-plugin-netlify',
+    {
+      resolve: `gatsby-plugin-breadcrumb`,
+      options: {
+        // defaultCrumb: optional To create a default crumb
+        // see Click Tracking default crumb example below
+        defaultCrumb: {
+          location: {
+            pathname: "/",
+          },
+          crumbLabel: "Home",
+          crumbSeparator: " / ",
+        },
+      }
+    }
   ],
 }

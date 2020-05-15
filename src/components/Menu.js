@@ -5,11 +5,11 @@ import { useSiteMetadata } from '../hooks/use-site-metadata'
 
 const Header = styled.header`
   background: ${props => props.theme.colors.primary};
-  width: 100%;
+  width: 100vw;
   padding: 1.5em 0;
 `
 const Nav = styled.nav`
-  width: 100%;
+  width: 100vw;
   max-width: ${props => props.theme.sizes.maxWidth};
   margin: 0 auto;
   padding: 0 1.5em;

@@ -4,10 +4,12 @@ import Layout from '../components/Layout'
 import Container from '../components/Container'
 import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
+import Gmap from '../components/Gmap'
 import SEO from '../components/SEO'
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
-const PageTemplate = ({ data }) => {
-  const { title, metaDescription, body } = data.contentfulPage
+const PageTemplate = ({ data, location }) => {
+  const { title, metaDescription, body, lat, lng, mapLabel } = data.contentfulPage
   return (
     <Layout>
       <SEO
@@ -19,8 +21,16 @@ const PageTemplate = ({ data }) => {
         }
       />
       <Container>
+        <Breadcrumb location={location} crumbLabel={title} />
         <PageTitle>{title}</PageTitle>
         <PageBody body={body} />
+        { lat && lng ? (
+          <div>
+            <Gmap lat={ lat } lng={ lng } text={ mapLabel } />
+          </div>
+        ) : (
+          <p></p>
+        )}
       </Container>
     </Layout>
   )
@@ -42,6 +52,9 @@ export const query = graphql`
           excerpt(pruneLength: 320)
         }
       }
+      lat
+      lng
+      mapLabel
     }
   }
 `

@@ -19,6 +19,7 @@ const Body = styled.div`
   }
   h2 {
     font-size: 1.25em;
+    padding-top: 1.25em;
   }
   h3 {
     font-size: 1em;
@@ -30,10 +31,25 @@ const Body = styled.div`
   }
 
   a {
-    transition: 0.2s;
-    color: ${props => props.theme.colors.text};
-    &:hover {
-      color: ${props => props.theme.colors.highlight};
+    color: #409eff;
+    text-decoration: none;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: #409eff;
+      transform: scale(0, 1);
+      transform-origin: left top;
+      transition: transform 0.3s;
+    }
+
+    &:hover::after {
+      transform: scale(1, 1);
     }
   }
 
@@ -94,12 +110,21 @@ const Body = styled.div`
       background: inherit !important;
     }
   }
+
+  dt {
+    padding-bottom: 0.2em;
+  }
+  dd {
+    padding-bottom: 0.4em;
+  }
 `
 
 const PageBody = props => {
+  const pattern = /\[(.+)\]\((.+)\)/g
+  const newHtml = props.body.childMarkdownRemark.html.replace(pattern, '<a href="$2">$1</a>')
   return (
     <Body
-      dangerouslySetInnerHTML={{ __html: props.body.childMarkdownRemark.html }}
+      dangerouslySetInnerHTML={{ __html: newHtml }}
     />
   )
 }

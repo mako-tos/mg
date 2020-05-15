@@ -208,7 +208,7 @@ class ContactForm extends React.Component {
         <Name
           name="name"
           type="text"
-          placeholder="Full Name"
+          placeholder="お名前"
           value={this.state.name}
           onChange={this.handleInputChange}
           required
@@ -216,7 +216,7 @@ class ContactForm extends React.Component {
         <Email
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="メールアドレス"
           value={this.state.email}
           onChange={this.handleInputChange}
           required
@@ -224,17 +224,17 @@ class ContactForm extends React.Component {
         <Message
           name="message"
           type="text"
-          placeholder="Message"
+          placeholder="内容"
           value={this.state.message}
           onChange={this.handleInputChange}
           required
         />
-        <Submit name="submit" type="submit" value="Send" />
+        <Submit name="submit" type="submit" value="送信" />
 
         <Modal visible={this.state.showModal}>
           <p>
-            Thank you for reaching out. I will get back to you as soon as
-            possible.
+            お問い合わせありがとうございます。<br />
+            返信をお待ちくださいますようお願い申し上げます。
           </p>
           <Button onClick={this.closeModal}>Okay</Button>
         </Modal>

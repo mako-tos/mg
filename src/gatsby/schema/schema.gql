@@ -139,6 +139,8 @@ type ContentfulPost implements Node @derivedTypes @dontInfer {
   heroImage: ContentfulAsset @link(by: "id", from: "heroImage___NODE")
   tags: [ContentfulTag] @link(by: "id", from: "tags___NODE")
   body: contentfulPostBodyTextNode @link(by: "id", from: "body___NODE")
+  lat: Float
+  lng: Float
   spaceId: String
   contentful_id: String
   createdAt: Date @dateformat
@@ -210,6 +212,9 @@ type ContentfulPage implements Node @derivedTypes @dontInfer {
   slug: String
   body: contentfulPageBodyTextNode @link(by: "id", from: "body___NODE")
   metaDescription: contentfulPageMetaDescriptionTextNode @link(by: "id", from: "metaDescription___NODE")
+  lat: Float
+  lng: Float
+  mapLabel: String
   spaceId: String
   contentful_id: String
   createdAt: Date @dateformat

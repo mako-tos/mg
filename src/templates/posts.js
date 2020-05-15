@@ -6,9 +6,11 @@ import Card from '../components/Card'
 import Container from '../components/Container'
 import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
+import GmapTop from '../components/GmapTop'
 import { startCase } from 'lodash'
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
-const Posts = ({ data, pageContext }) => {
+const Posts = ({ data, pageContext, location }) => {
   const posts = data.allContentfulPost.edges
   const { humanPageNumber, basePath } = pageContext
   const isFirstPage = humanPageNumber === 1
@@ -26,17 +28,37 @@ const Posts = ({ data, pageContext }) => {
     ogImage = null
   }
 
+  const markers = posts.map(post => {
+    const node = post.node
+    return {
+      lat: node.lat,
+      lng: node.lng,
+      slug: node.slug,
+      text: node.title
+    }
+  })
+
   return (
     <Layout>
       <SEO title={startCase(basePath)} image={ogImage} />
       <Container>
+        <Breadcrumb location={location} crumbLabel="Home" />
         {isFirstPage ? (
-          <CardList>
-            <Card {...featuredPost} featured basePath={basePath} />
-            {posts.slice(1).map(({ node: post }) => (
-              <Card key={post.id} {...post} basePath={basePath} />
-            ))}
-          </CardList>
+          <div>
+            <h3 style={{ padding: '0.5em 0' }}>
+              ★新しいマンションのご紹介！★
+            </h3>
+            <CardList>
+              <Card {...featuredPost} featured basePath={basePath} />
+              {posts.slice(1).map(({ node: post }) => (
+                <Card key={post.id} {...post} basePath={basePath} />
+              ))}
+            </CardList>
+            <h3 style={{ padding: '0.5em 0' }}>
+              弊社取り扱い物件
+            </h3>
+            <GmapTop lat={ 35.63317 } lng={ 139.708868 } markers={ markers } basePath={basePath} />
+          </div>
         ) : (
           <CardList>
             {posts.map(({ node: post }) => (
@@ -62,7 +84,7 @@ export const query = graphql`
           title
           id
           slug
-          publishDate(formatString: "MMMM DD, YYYY")
+          publishDate(formatString: "YYYY-MM-DD")
           heroImage {
             title
             fluid(maxWidth: 1800) {
@@ -79,6 +101,8 @@ export const query = graphql`
               excerpt(pruneLength: 80)
             }
           }
+          lat
+          lng
         }
       }
     }

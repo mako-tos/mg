@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
+import moment from 'moment'
 
 const Post = styled.li`
   position: relative;
@@ -65,6 +66,7 @@ const Excerpt = styled.p`
 `
 
 const Card = ({ slug, heroImage, title, publishDate, body, ...props }) => {
+  const date = moment(publishDate, 'MMM DD, YYYY').format('YYYY-MM-DD')
   return (
     <>
       {heroImage && body && (
@@ -72,9 +74,9 @@ const Card = ({ slug, heroImage, title, publishDate, body, ...props }) => {
           <Link to={`${props.basePath}/${slug}/`}>
             <StyledImg fluid={heroImage.fluid} backgroundColor={'#eeeeee'} />
             <Title>{title}</Title>
-            <Date>{publishDate}</Date>
+            <Date>{date}</Date>
             <ReadingTime>
-              {body.childMarkdownRemark.timeToRead} min read
+              読むのに {body.childMarkdownRemark.timeToRead} 分
             </ReadingTime>
             <Excerpt
               dangerouslySetInnerHTML={{
