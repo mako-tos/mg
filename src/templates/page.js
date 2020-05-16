@@ -6,7 +6,9 @@ import PageTitle from '../components/PageTitle'
 import PageBody from '../components/PageBody'
 import Gmap from '../components/Gmap'
 import SEO from '../components/SEO'
+import WhiteWrapper from '../components/WhiteWrapper'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
+
 
 const PageTemplate = ({ data, location }) => {
   const { title, metaDescription, body, lat, lng, mapLabel } = data.contentfulPage
@@ -19,18 +21,22 @@ const PageTemplate = ({ data, location }) => {
             ? metaDescription.internal.content
             : body.childMarkdownRemark.excerpt
         }
+        location={location}
       />
       <Container>
         <Breadcrumb location={location} crumbLabel={title} />
+
         <PageTitle>{title}</PageTitle>
-        <PageBody body={body} />
-        { lat && lng ? (
-          <div>
-            <Gmap lat={ lat } lng={ lng } text={ mapLabel } />
-          </div>
-        ) : (
-          <p></p>
-        )}
+        <WhiteWrapper>
+          <PageBody body={body} />
+          { lat && lng ? (
+            <div>
+              <Gmap lat={ lat } lng={ lng } text={ mapLabel } />
+            </div>
+          ) : (
+            <></>
+          )}
+        </WhiteWrapper>
       </Container>
     </Layout>
   )

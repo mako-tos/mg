@@ -10,7 +10,7 @@ import PageTitle from '../components/PageTitle'
 import Pagination from '../components/Pagination'
 import Container from '../components/Container'
 
-const TagTemplate = ({ data, pageContext }) => {
+const TagTemplate = ({ data, pageContext, location }) => {
   const posts = orderBy(
     data.contentfulTag.post,
     // eslint-disable-next-line
@@ -38,12 +38,11 @@ const TagTemplate = ({ data, pageContext }) => {
           title={`Tag: ${startCase(title)}`}
           description={`Posts Tagged: ${startCase(title)}`}
           image={ogImage}
+          location={location}
         />
         <Container>
           <PageTitle small>
-            {numberOfPosts} Posts Tagged: &ldquo;
-            {title}
-            &rdquo;
+            タグ「{title}」が {numberOfPosts} 件登録されてます
           </PageTitle>
           <CardList>
             {posts.slice(skip, limit * humanPageNumber).map(post => (
@@ -67,7 +66,7 @@ export const query = graphql`
         id
         title
         slug
-        publishDate(formatString: "MMMM DD, YYYY")
+        publishDate(formatString: "YYYY-MM-DD")
         publishDateISO: publishDate(formatString: "YYYY-MM-DD")
         heroImage {
           title

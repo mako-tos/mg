@@ -9,6 +9,7 @@ import PostLinks from '../components/PostLinks'
 import PostDetails from '../components/PostDetails'
 import Gmap from '../components/Gmap'
 import SEO from '../components/SEO'
+import WhiteWrapper from '../components/WhiteWrapper'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 const PostTemplate = ({ data, pageContext, location }) => {
@@ -44,20 +45,23 @@ const PostTemplate = ({ data, pageContext, location }) => {
             : body.childMarkdownRemark.excerpt
         }
         image={ogImage}
+        location={location}
       />
       <Hero title={title} image={heroImage} height={'50vh'} />
       <Container>
         <Breadcrumb location={location} crumbLabel={title} />
         {tags && <TagList tags={tags} basePath={basePath} />}
-        <PostDetails
-          date={publishDate}
-          timeToRead={body.childMarkdownRemark.timeToRead}
-        />
-        <PageBody body={body} />
-        <div className="to-contact">
-          <Link to="/contact">お問合せはこちらへ</Link>
-        </div>
-        <Gmap lat={ lat } lng={ lng } text={ title } />
+        <WhiteWrapper>
+          <PostDetails
+            date={publishDate}
+            timeToRead={body.childMarkdownRemark.timeToRead}
+          />
+          <PageBody body={body} />
+          <div className="to-contact">
+            <Link to="/contact">お問合せ</Link>
+          </div>
+          <Gmap lat={ lat } lng={ lng } text={ title } />
+        </WhiteWrapper>
       </Container>
       <PostLinks previous={previous} next={next} basePath={basePath} />
     </Layout>

@@ -79,8 +79,8 @@ const Message = styled.textarea`
 `
 
 const Submit = styled.input`
-  background: ${props => props.theme.colors.text} !important;
-  color: white !important;
+  background: white !important;
+  color: black !important;
   cursor: pointer;
   transition: 0.2s;
   &:hover {

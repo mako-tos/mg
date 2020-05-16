@@ -5,10 +5,10 @@ import PageTitle from '../components/PageTitle'
 import ContactForm from '../components/ContactForm'
 import SEO from '../components/SEO'
 
-const Contact = ({ data }) => {
+const Contact = ({ data, location }) => {
   return (
     <Layout>
-      <SEO title="Contact" description="Contact description goes here" />
+      <SEO title="Contact" description="お問合せはこちらから" location={location} />
       <Container>
         <PageTitle>Contact</PageTitle>
         <ContactForm />

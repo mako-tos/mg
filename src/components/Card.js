@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
-import moment from 'moment'
 
 const Post = styled.li`
   position: relative;
@@ -27,6 +26,7 @@ const Post = styled.li`
     height: 100%;
     width: 100%;
     color: ${props => props.theme.colors.text};
+    background-color: white;
     text-decoration: none;
     .gatsby-image-wrapper {
       height: 0;
@@ -66,23 +66,25 @@ const Excerpt = styled.p`
 `
 
 const Card = ({ slug, heroImage, title, publishDate, body, ...props }) => {
-  const date = moment(publishDate, 'MMM DD, YYYY').format('YYYY-MM-DD')
   return (
     <>
       {heroImage && body && (
         <Post featured={props.featured}>
           <Link to={`${props.basePath}/${slug}/`}>
-            <StyledImg fluid={heroImage.fluid} backgroundColor={'#eeeeee'} />
+            <div className="header-image-container">
+              <StyledImg className="large" fluid={heroImage.fluid} backgroundColor={'#eeeeee'} />
+              <img className="logo-image" src="/images/logo_white_96.jpg" alt="企業ロゴ" />
+            </div>
             <Title>{title}</Title>
-            <Date>{date}</Date>
-            <ReadingTime>
-              読むのに {body.childMarkdownRemark.timeToRead} 分
-            </ReadingTime>
-            <Excerpt
-              dangerouslySetInnerHTML={{
-                __html: body.childMarkdownRemark.excerpt,
-              }}
-            />
+              <Date>{publishDate}</Date>
+              <ReadingTime>
+                読むのに {body.childMarkdownRemark.timeToRead} 分
+              </ReadingTime>
+              <Excerpt
+                dangerouslySetInnerHTML={{
+                  __html: body.childMarkdownRemark.excerpt,
+                }}
+              />
           </Link>
         </Post>
       )}

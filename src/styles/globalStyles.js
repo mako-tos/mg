@@ -109,6 +109,15 @@ export const globalStyles = css`
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
+    background:
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
   }
   footer {
     width: 100%;
@@ -217,6 +226,12 @@ export const globalStyles = css`
   .breadcrumb__list {
     display: flex;
     padding: 0.5em 0;
+    color: white;
+    li {
+      a {
+        color: white;
+      }
+    }
     li + li::before {
       content: ' ';
       display: inline-block;
@@ -226,7 +241,8 @@ export const globalStyles = css`
 
   .to-contact {
     text-align: center;
-    margin: 1em;
+    margin: 2em;
+    font-size: 2em;
     a {
       background-color: blue;
       color: white;
@@ -235,4 +251,22 @@ export const globalStyles = css`
       border-radius: 0.5em;
     }
   }
+
+  .header-image-container {
+    position: relative;
+    padding: 0;
+  
+    img.large {
+      width: 100%;
+      height: auto;
+    }
+
+    img.logo-image {
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      width: 96px;
+    }
+  }
+  
 `

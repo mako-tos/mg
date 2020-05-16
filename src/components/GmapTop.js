@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LazyLoad from 'react-lazyload'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react'
@@ -39,39 +40,41 @@ class GmapTop extends Component {
     if (typeof window === 'undefined') {
       return (<></>)
     }
-    console.log(this.props.markers)
+
     return (
-      <MapContainer>
-        <Map
-          google={ window.google }
-          style={style}
-          containerStyle={style}
-          zoom={ 14 }
-          center={{ lat: this.props.lat, lng: this.props.lng }}
-          initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
-        >
-          {this.props.markers.map(marker => (
-            <Marker
-              position={{ lat: marker.lat, lng: marker.lng }}
-              onClick={e => { this.clickMarker(marker) } }
-              key={marker.slug}
-            />
-          ))}
-          {this.props.markers.map(marker => (
-            <InfoWindow
-              visible={ this.state.showInfoWindow[marker.slug] }
-              position={{ lat: marker.lat, lng: marker.lng }}
-              key={marker.slug}
-            >
-              <div>
-                <Link to={`${this.props.basePath}/${marker.slug}/`}>
-                  { marker.text }
-                </Link>
-              </div>
-            </InfoWindow>
-          ))}
-          </Map>
-      </MapContainer>
+      <LazyLoad once offset={30}>
+        <MapContainer>
+          <Map
+            google={ window.google }
+            style={style}
+            containerStyle={style}
+            zoom={ 14 }
+            center={{ lat: this.props.lat, lng: this.props.lng }}
+            initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
+          >
+            {this.props.markers.map(marker => (
+              <Marker
+                position={{ lat: marker.lat, lng: marker.lng }}
+                onClick={e => { this.clickMarker(marker) } }
+                key={marker.slug}
+              />
+            ))}
+            {this.props.markers.map(marker => (
+              <InfoWindow
+                visible={ this.state.showInfoWindow[marker.slug] }
+                position={{ lat: marker.lat, lng: marker.lng }}
+                key={marker.slug}
+              >
+                <div>
+                  <Link to={`${this.props.basePath}/${marker.slug}/`}>
+                    { marker.text }
+                  </Link>
+                </div>
+              </InfoWindow>
+            ))}
+            </Map>
+        </MapContainer>
+      </LazyLoad>
     )
   }
 }

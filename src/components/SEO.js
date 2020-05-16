@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-const SEO = ({ title, description, image }) => {
+const SEO = ({ title, description, location, image }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -18,14 +18,43 @@ const SEO = ({ title, description, image }) => {
     `
   )
 
-  const defaultImage = site.siteMetadata.siteUrl + site.siteMetadata.image
+  const defaultImage = `${site.siteMetadata.siteUrl}${site.siteMetadata.image}`
   const metaDescription = description || site.siteMetadata.description
   const metaImage = image || defaultImage
 
+  const seo = {
+    title: title || site.siteMetadata.title,
+    description: metaDescription,
+    image: metaImage,
+    url: site.siteMetadata.siteUrl + location.pathname
+  }
+  const schemaOrgJSONLD = [
+    {
+      '@context': 'http://schema.org',
+      '@type': 'WebSite',
+      '@id': seo.url,
+      url: seo.url,
+      name: seo.title,
+      alternateName: seo.title,
+      headline: seo.title,
+      image: {
+        '@type': 'ImageObject',
+        url: seo.image
+      },
+      author: {
+        '@type': 'Person',
+        name: '篠田　誠'
+      },
+      mainEntityOfPage: {
+        '@type': 'WebSite',
+        '@id': seo.url
+      }
+    }
+  ]
   return (
     <Helmet
       htmlAttributes={{
-        lang: `en`,
+        lang: `ja-JP`,
       }}
       title={title}
       defaultTitle={site.siteMetadata.title}
@@ -47,6 +76,10 @@ const SEO = ({ title, description, image }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:image" content={metaImage} />
       <meta name="twitter:description" content={metaDescription} />
+
+      <script type='application/ld+json'>
+        {JSON.stringify(schemaOrgJSONLD)}
+      </script>
     </Helmet>
   )
 }

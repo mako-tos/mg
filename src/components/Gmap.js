@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LazyLoad from 'react-lazyload'
 import styled from '@emotion/styled'
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react'
 
@@ -12,7 +13,7 @@ const MapContainer = styled.div`
 const style = {
   height: '25vh',
   width: 'calc(100vw - 4em)',
-  maxWidth: '650px',
+  maxWidth: 'calc(650px - 1em)',
   padding: 'auto 0'
 }
 
@@ -32,29 +33,31 @@ class Gmap extends Component {
       return (<></>)
     }
     return (
-      <MapContainer>
-        <Map
-          google={ window.google }
-          style={style}
-          containerStyle={style}
-          zoom={ 15 }
-          center={{ lat: this.props.lat, lng: this.props.lng }}
-          initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
-        >
-          <Marker
-            position={{ lat: this.props.lat, lng: this.props.lng }}
-            onClick={e => { this.clickMarker() } }
-          />
-          <InfoWindow
-            visible={ this.state.showInfoWindow }
-            position={{ lat: this.props.lat, lng: this.props.lng }}
+      <LazyLoad once offset={30}>
+        <MapContainer>
+          <Map
+            google={ window.google }
+            style={style}
+            containerStyle={style}
+            zoom={ 15 }
+            center={{ lat: this.props.lat, lng: this.props.lng }}
+            initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
           >
-            <div>
-              { this.props.text }
-            </div>
-          </InfoWindow>
-        </Map>
-      </MapContainer>
+            <Marker
+              position={{ lat: this.props.lat, lng: this.props.lng }}
+              onClick={e => { this.clickMarker() } }
+            />
+            <InfoWindow
+              visible={ this.state.showInfoWindow }
+              position={{ lat: this.props.lat, lng: this.props.lng }}
+            >
+              <div>
+                { this.props.text }
+              </div>
+            </InfoWindow>
+          </Map>
+        </MapContainer>
+      </LazyLoad>
     )
   }
 }

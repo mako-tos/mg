@@ -1,5 +1,6 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
+import Img from 'gatsby-image'
 import Layout from '../components/Layout'
 import CardList from '../components/CardList'
 import Card from '../components/Card'
@@ -12,6 +13,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 const Posts = ({ data, pageContext, location }) => {
   const posts = data.allContentfulPost.edges
+  const topImage = data.contentfulAsset
   const { humanPageNumber, basePath } = pageContext
   const isFirstPage = humanPageNumber === 1
   let featuredPost
@@ -23,7 +25,7 @@ const Posts = ({ data, pageContext, location }) => {
     featuredPost = null
   }
   try {
-    ogImage = posts[0].node.heroImage.ogimg.src
+    ogImage = data.contentfulAsset.ogimg.src
   } catch (error) {
     ogImage = null
   }
@@ -37,16 +39,19 @@ const Posts = ({ data, pageContext, location }) => {
       text: node.title
     }
   })
-
   return (
     <Layout>
-      <SEO title={startCase(basePath)} image={ogImage} />
+      <SEO title={startCase(basePath)} image={ogImage} location={location} />
       <Container>
-        <Breadcrumb location={location} crumbLabel="Home" />
+        <Breadcrumb className="white-text" location={location} crumbLabel="Home" />
         {isFirstPage ? (
           <div>
-            <h3 style={{ padding: '0.5em 0' }}>
-              ★新しいマンションのご紹介！★
+            <div className="header-image-container">
+              <Img sizes={topImage.sizes} alt={topImage.title} />
+              <img className="logo-image" src="/images/logo_white_96.jpg" alt="企業ロゴ" />
+            </div>
+            <h3 style={{ padding: '0.5em 0', color: 'white' }}>
+              New
             </h3>
             <CardList>
               <Card {...featuredPost} featured basePath={basePath} />
@@ -54,10 +59,13 @@ const Posts = ({ data, pageContext, location }) => {
                 <Card key={post.id} {...post} basePath={basePath} />
               ))}
             </CardList>
-            <h3 style={{ padding: '0.5em 0' }}>
+            <h3 style={{ padding: '0.5em 0', color: 'white' }}>
               弊社取り扱い物件
             </h3>
             <GmapTop lat={ 35.63317 } lng={ 139.708868 } markers={ markers } basePath={basePath} />
+            <div className="to-contact">
+              <Link to="/contact">お問合せ</Link>
+            </div>
           </div>
         ) : (
           <CardList>
@@ -87,11 +95,8 @@ export const query = graphql`
           publishDate(formatString: "YYYY-MM-DD")
           heroImage {
             title
-            fluid(maxWidth: 1800) {
+            fluid(quality: 80, maxWidth: 1000) {
               ...GatsbyContentfulFluid_withWebp_noBase64
-            }
-            ogimg: resize(width: 1800) {
-              src
             }
           }
           body {
@@ -105,6 +110,15 @@ export const query = graphql`
           lng
         }
       }
+    },
+    contentfulAsset(contentful_id:  { eq: "4CBG0pj2AqgZwBAzkhZG9f" }) {
+      sizes(quality: 80, maxWidth: 1000) {
+        ...GatsbyContentfulSizes_withWebp
+      }
+      ogimg: resize(width: 1000) {
+        src
+      }
+      title
     }
   }
 `
