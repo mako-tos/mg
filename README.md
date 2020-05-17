@@ -1,1 +1,1 @@
-このサイトは[gatsby-contentful-starter](https://github.com/contentful-userland/gatsby-contentful-starter)を基に作成してます
+このサイトは[gatsby-starter-gcn](https://github.com/ryanwiemer/gatsby-starter-gcn)を基に作成してます
