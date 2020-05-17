@@ -14,12 +14,10 @@ try {
     throw new Error('Contentful space ID and access token need to be provided.')
   }
 }
-console.log(process.env.NODE_ENV)
 module.exports = {
   siteMetadata: {
     title: '目黒川不動産',
-    description:
-      '目黒川不動産のHPです',
+    description: '目黒川不動産のHPです',
     /** TODO FIXME */
     siteUrl: 'https://study-for-gatsby.netlify.app',
     image: '/images/logo_white_96.jpg',
@@ -40,6 +38,7 @@ module.exports = {
     postsPerFirstPage: 7,
     postsPerPage: 6,
     basePath: '/',
+    googleMap: process.env.GOOGLE_MAP
   },
   plugins: [
     `gatsby-plugin-emotion`,
@@ -108,11 +107,17 @@ module.exports = {
         // see Click Tracking default crumb example below
         defaultCrumb: {
           location: {
-            pathname: "/",
+            pathname: '/',
           },
-          crumbLabel: "Home",
-          crumbSeparator: " / ",
+          crumbLabel: 'Home',
+          crumbSeparator: ' / ',
         },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `megurogawafudosan-com`
       }
     }
   ],

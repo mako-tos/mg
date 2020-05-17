@@ -78,7 +78,10 @@ class GmapTop extends Component {
     )
   }
 }
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAtZj75-Q06Y8Kq43uWMeiIbwWXRvsLx8E',
-  language: 'ja'
-})(GmapTop)
+
+export default GoogleApiWrapper(
+  props => ({
+    apiKey: props.apiKey,
+    language: 'ja'
+  })
+)(GmapTop)

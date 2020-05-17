@@ -61,7 +61,10 @@ class Gmap extends Component {
     )
   }
 }
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAtZj75-Q06Y8Kq43uWMeiIbwWXRvsLx8E',
-  language: 'ja'
-})(Gmap)
+
+export default GoogleApiWrapper(
+  props => ({
+    apiKey: props.apiKey,
+    language: 'ja'
+  })
+)(Gmap)

@@ -10,6 +10,7 @@ export const useSiteMetadata = () => {
             description
             siteUrl
             image
+            googleMap
             menuLinks {
               name
               slug

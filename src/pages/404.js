@@ -15,7 +15,7 @@ const Text = styled.p`
   }
 `
 
-const NotFoundPage = ({location}) => (
+const NotFoundPage = ({ location }) => (
   <Layout>
     <SEO title="404" description="Page Not Found" location={location} />
     <Container>

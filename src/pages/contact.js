@@ -4,13 +4,21 @@ import Container from '../components/Container'
 import PageTitle from '../components/PageTitle'
 import ContactForm from '../components/ContactForm'
 import SEO from '../components/SEO'
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
+import 'gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css'
 
 const Contact = ({ data, location }) => {
+  const title = 'Contact'
   return (
     <Layout>
-      <SEO title="Contact" description="お問合せはこちらから" location={location} />
+      <SEO
+        title={title}
+        description="お問合せはこちらから"
+        location={location}
+      />
       <Container>
-        <PageTitle>Contact</PageTitle>
+        <Breadcrumb location={location} crumbLabel={title} />
+        <PageTitle>{title}</PageTitle>
         <ContactForm />
       </Container>
     </Layout>

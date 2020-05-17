@@ -9,9 +9,16 @@ import SEO from '../components/SEO'
 import WhiteWrapper from '../components/WhiteWrapper'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
-
 const PageTemplate = ({ data, location }) => {
-  const { title, metaDescription, body, lat, lng, mapLabel } = data.contentfulPage
+  const {
+    title,
+    metaDescription,
+    body,
+    lat,
+    lng,
+    mapLabel,
+  } = data.contentfulPage
+  const apiKey = data.site.siteMetadata.googleMap
   return (
     <Layout>
       <SEO
@@ -29,9 +36,9 @@ const PageTemplate = ({ data, location }) => {
         <PageTitle>{title}</PageTitle>
         <WhiteWrapper>
           <PageBody body={body} />
-          { lat && lng ? (
+          {lat && lng ? (
             <div>
-              <Gmap lat={ lat } lng={ lng } text={ mapLabel } />
+              <Gmap lat={lat} lng={lng} text={mapLabel} apiKey={apiKey} />
             </div>
           ) : (
             <></>
@@ -61,6 +68,11 @@ export const query = graphql`
       lat
       lng
       mapLabel
+    },
+    site {
+      siteMetadata {
+        googleMap
+      }
     }
   }
 `

@@ -10,6 +10,7 @@ import PostDetails from '../components/PostDetails'
 import Gmap from '../components/Gmap'
 import SEO from '../components/SEO'
 import WhiteWrapper from '../components/WhiteWrapper'
+import Comments from '../components/Comments'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 const PostTemplate = ({ data, pageContext, location }) => {
@@ -27,12 +28,11 @@ const PostTemplate = ({ data, pageContext, location }) => {
     address,
     buildAt,
     station,
-    ldk
+    ldk,
   } = data.contentfulPost
 
-  const previous = pageContext.prev
-  const next = pageContext.next
-  const { basePath } = pageContext
+  const { previous, next, basePath } = pageContext
+  const apiKey = data.site.siteMetadata.googleMap
 
   let ogImage
   try {
@@ -63,16 +63,16 @@ const PostTemplate = ({ data, pageContext, location }) => {
             timeToRead={body.childMarkdownRemark.timeToRead}
           />
           <PageBody body={body} />
-          <div>{ price } 万円</div>
-          <div>{ space } ㎡</div>
-          <div>{ address }</div>
-          <div>築{ buildAt }</div>
-          <div>{ station }</div>
-          <div>{ ldk }</div>
+          <div>{price} 万円</div>
+          <div>{space} ㎡</div>
+          <div>{address}</div>
+          <div>築{buildAt}</div>
+          <div>{station}</div>
+          <div>{ldk}</div>
           <div className="to-contact">
             <Link to="/contact">お問合せ</Link>
           </div>
-          <Gmap lat={ lat } lng={ lng } text={ title } />
+          <Gmap lat={lat} lng={lng} text={title} apiKey={apiKey} />
         </WhiteWrapper>
       </Container>
       <PostLinks previous={previous} next={next} basePath={basePath} />
@@ -121,6 +121,11 @@ export const query = graphql`
       buildAt
       station
       ldk
+    },
+    site {
+      siteMetadata {
+        googleMap
+      }
     }
   }
 `

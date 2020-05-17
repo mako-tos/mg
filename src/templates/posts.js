@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { useStaticQuery, graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../components/Layout'
 import CardList from '../components/CardList'
@@ -10,10 +10,13 @@ import SEO from '../components/SEO'
 import GmapTop from '../components/GmapTop'
 import { startCase } from 'lodash'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
+import 'gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css'
 
 const Posts = ({ data, pageContext, location }) => {
   const posts = data.allContentfulPost.edges
   const topImage = data.contentfulAsset
+  const site = data.site
+  console.log(site)
   const { humanPageNumber, basePath } = pageContext
   const isFirstPage = humanPageNumber === 1
   let featuredPost
@@ -36,23 +39,25 @@ const Posts = ({ data, pageContext, location }) => {
       lat: node.lat,
       lng: node.lng,
       slug: node.slug,
-      text: node.title
+      text: node.title,
     }
   })
   return (
     <Layout>
       <SEO title={startCase(basePath)} image={ogImage} location={location} />
       <Container>
-        <Breadcrumb className="white-text" location={location} crumbLabel="Home" />
+        <Breadcrumb location={location} crumbLabel="Home" />
         {isFirstPage ? (
           <div>
             <div className="header-image-container">
               <Img fluid={topImage.fluid} alt={topImage.title} />
-              <img className="logo-image" src="/images/logo_white_96.jpg" alt="企業ロゴ" />
+              <img
+                className="logo-image"
+                src="/images/logo_white_96.jpg"
+                alt="企業ロゴ"
+              />
             </div>
-            <h3 style={{ padding: '0.5em 0', color: 'white' }}>
-              New
-            </h3>
+            <h3 style={{ padding: '0.5em 0', color: 'white' }}>New</h3>
             <CardList>
               <Card {...featuredPost} featured basePath={basePath} />
               {posts.slice(1).map(({ node: post }) => (
@@ -62,7 +67,13 @@ const Posts = ({ data, pageContext, location }) => {
             <h3 style={{ padding: '0.5em 0', color: 'white' }}>
               弊社取り扱い物件
             </h3>
-            <GmapTop lat={ 35.640913 } lng={ 139.68925 } markers={ markers } basePath={basePath} />
+            <GmapTop
+              lat={35.640913}
+              lng={139.68925}
+              markers={markers}
+              basePath={basePath}
+              apiKey={site.siteMetadata.googleMap}
+            />
             <div className="to-contact">
               <Link to="/contact">お問合せ</Link>
             </div>
@@ -81,10 +92,7 @@ const Posts = ({ data, pageContext, location }) => {
 }
 
 export const query = graphql`
-  query(
-    $skip: Int!,
-    $limit: Int!
-  ) {
+  query($skip: Int!, $limit: Int!) {
     allContentfulPost(
       sort: { fields: [publishDate], order: DESC }
       limit: $limit
@@ -113,8 +121,8 @@ export const query = graphql`
           lng
         }
       }
-    },
-    contentfulAsset(contentful_id:  { eq: "4CBG0pj2AqgZwBAzkhZG9f" }) {
+    }
+    contentfulAsset(contentful_id: { eq: "4CBG0pj2AqgZwBAzkhZG9f" }) {
       fluid(quality: 80, maxWidth: 1000) {
         ...GatsbyContentfulFluid_withWebp_noBase64
       }
@@ -122,6 +130,11 @@ export const query = graphql`
         src
       }
       title
+    },
+    site {
+      siteMetadata {
+        googleMap
+      }
     }
   }
 `
