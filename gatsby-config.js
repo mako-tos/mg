@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 let contentfulConfig
 try {
   contentfulConfig = require('./.contentful')
@@ -117,7 +119,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `megurogawafudosan-com`
+        shortname: process.env.DISQUS_SHORT_NAME
       }
     }
   ],

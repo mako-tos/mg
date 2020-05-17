@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import Layout from '../components/Layout'
 import CardList from '../components/CardList'
@@ -15,8 +15,7 @@ import 'gatsby-plugin-breadcrumb/gatsby-plugin-breadcrumb.css'
 const Posts = ({ data, pageContext, location }) => {
   const posts = data.allContentfulPost.edges
   const topImage = data.contentfulAsset
-  const site = data.site
-  console.log(site)
+  const apiKey = data.site.siteMetadata.googleMap
   const { humanPageNumber, basePath } = pageContext
   const isFirstPage = humanPageNumber === 1
   let featuredPost
@@ -72,7 +71,7 @@ const Posts = ({ data, pageContext, location }) => {
               lng={139.68925}
               markers={markers}
               basePath={basePath}
-              apiKey={site.siteMetadata.googleMap}
+              apiKey={apiKey}
             />
             <div className="to-contact">
               <Link to="/contact">お問合せ</Link>

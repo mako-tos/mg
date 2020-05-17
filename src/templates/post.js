@@ -74,6 +74,7 @@ const PostTemplate = ({ data, pageContext, location }) => {
           </div>
           <Gmap lat={lat} lng={lng} text={title} apiKey={apiKey} />
         </WhiteWrapper>
+        <Comments post={data.contentfulPost} location={location} />
       </Container>
       <PostLinks previous={previous} next={next} basePath={basePath} />
     </Layout>
