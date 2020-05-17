@@ -19,19 +19,18 @@ const SEO = ({ title, description, location, image }) => {
   )
 
   const defaultImage = `${site.siteMetadata.siteUrl}${site.siteMetadata.image}`
-  const metaDescription = description || site.siteMetadata.description
-  const metaImage = image || defaultImage
 
   const seo = {
     title: title || site.siteMetadata.title,
-    description: metaDescription,
-    image: metaImage,
-    url: site.siteMetadata.siteUrl + location.pathname
+    description: description || site.siteMetadata.description,
+    image: image || defaultImage,
+    url: site.siteMetadata.siteUrl + location.pathname,
+    type: location.pathname === '/' ? 'website' : 'article'
   }
   const schemaOrgJSONLD = [
     {
       '@context': 'http://schema.org',
-      '@type': 'WebSite',
+      '@type': seo.type,
       '@id': seo.url,
       url: seo.url,
       name: seo.title,
@@ -51,31 +50,36 @@ const SEO = ({ title, description, location, image }) => {
       }
     }
   ]
+
   return (
     <Helmet
       htmlAttributes={{
         lang: `ja-JP`,
       }}
-      title={title}
+      title={seo.title}
       defaultTitle={site.siteMetadata.title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
     >
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       {/* General tags */}
-      <meta name="image" content={image} />
-      <meta name="description" content={metaDescription} />
+      <meta name="image" content={seo.image} />
+      <meta name="description" content={seo.description} />
 
       {/* OpenGraph tags */}
-      <meta property="og:title" content={title} />
-      <meta property="og:image" content={metaImage} />
-      <meta property="og:description" content={metaDescription} />
+      <meta property="og:type" content={seo.type} />
+      <meta property="og:url" content={seo.url} />
+      <meta property="og:title" content={seo.title} />
+      <meta property="og:image" content={seo.image} />
+      <meta property="og:description" content={seo.description} />
 
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:image" content={metaImage} />
-      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:image" content={seo.image} />
+      <meta name="twitter:description" content={seo.description} />
+
+      <link rel="preconnect" href="https://maps.googleapis.com" />
 
       <script type='application/ld+json'>
         {JSON.stringify(schemaOrgJSONLD)}

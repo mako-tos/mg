@@ -70,7 +70,7 @@ export const query = graphql`
         publishDateISO: publishDate(formatString: "YYYY-MM-DD")
         heroImage {
           title
-          fluid(maxWidth: 1800) {
+          fluid(quality: 80, maxWidth: 500) {
             ...GatsbyContentfulFluid_withWebp_noBase64
           }
           ogimg: resize(width: 1800) {

@@ -141,6 +141,12 @@ type ContentfulPost implements Node @derivedTypes @dontInfer {
   body: contentfulPostBodyTextNode @link(by: "id", from: "body___NODE")
   lat: Float
   lng: Float
+  price: Int
+  address: String
+  space: String
+  buildAt: String
+  station: String
+  ldk: String
   spaceId: String
   contentful_id: String
   createdAt: Date @dateformat

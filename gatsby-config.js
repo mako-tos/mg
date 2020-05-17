@@ -14,14 +14,15 @@ try {
     throw new Error('Contentful space ID and access token need to be provided.')
   }
 }
-
+console.log(process.env.NODE_ENV)
 module.exports = {
   siteMetadata: {
     title: '目黒川不動産',
     description:
       '目黒川不動産のHPです',
-    siteUrl: 'https://www.megurogawafudosan.com',
-    image: '/images/share.jpg',
+    /** TODO FIXME */
+    siteUrl: 'https://study-for-gatsby.netlify.app',
+    image: '/images/logo_white_96.jpg',
     menuLinks: [
       {
         name: 'Home',
@@ -82,8 +83,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'GCN',
-        short_name: 'GCN',
+        name: '目黒川不動産HP',
+        short_name: '目黒川不動産',
         start_url: '/',
         background_color: '#ffffff',
         theme_color: '#ffffff',

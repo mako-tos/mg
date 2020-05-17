@@ -47,7 +47,7 @@ const Posts = ({ data, pageContext, location }) => {
         {isFirstPage ? (
           <div>
             <div className="header-image-container">
-              <Img sizes={topImage.sizes} alt={topImage.title} />
+              <Img fluid={topImage.fluid} alt={topImage.title} />
               <img className="logo-image" src="/images/logo_white_96.jpg" alt="企業ロゴ" />
             </div>
             <h3 style={{ padding: '0.5em 0', color: 'white' }}>
@@ -62,7 +62,7 @@ const Posts = ({ data, pageContext, location }) => {
             <h3 style={{ padding: '0.5em 0', color: 'white' }}>
               弊社取り扱い物件
             </h3>
-            <GmapTop lat={ 35.63317 } lng={ 139.708868 } markers={ markers } basePath={basePath} />
+            <GmapTop lat={ 35.640913 } lng={ 139.68925 } markers={ markers } basePath={basePath} />
             <div className="to-contact">
               <Link to="/contact">お問合せ</Link>
             </div>
@@ -81,7 +81,10 @@ const Posts = ({ data, pageContext, location }) => {
 }
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
+  query(
+    $skip: Int!,
+    $limit: Int!
+  ) {
     allContentfulPost(
       sort: { fields: [publishDate], order: DESC }
       limit: $limit
@@ -112,8 +115,8 @@ export const query = graphql`
       }
     },
     contentfulAsset(contentful_id:  { eq: "4CBG0pj2AqgZwBAzkhZG9f" }) {
-      sizes(quality: 80, maxWidth: 1000) {
-        ...GatsbyContentfulSizes_withWebp
+      fluid(quality: 80, maxWidth: 1000) {
+        ...GatsbyContentfulFluid_withWebp_noBase64
       }
       ogimg: resize(width: 1000) {
         src

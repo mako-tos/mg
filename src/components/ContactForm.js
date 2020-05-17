@@ -57,6 +57,7 @@ const Form = styled.form`
 const Name = styled.input`
   margin: 0 0 1em 0;
   width: 100%;
+  background: white;
   @media (min-width: ${props => props.theme.responsive.small}) {
     width: 49%;
   }
@@ -64,6 +65,7 @@ const Name = styled.input`
 
 const Email = styled.input`
   margin: 0 0 1em 0;
+  background: white;
   width: 100%;
   @media (min-width: ${props => props.theme.responsive.small}) {
     width: 49%;
@@ -72,6 +74,7 @@ const Email = styled.input`
 
 const Message = styled.textarea`
   width: 100%;
+  background: white;
   margin: 0 0 1em 0;
   line-height: 1.6;
   min-height: 250px;

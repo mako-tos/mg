@@ -21,7 +21,13 @@ const PostTemplate = ({ data, pageContext, location }) => {
     publishDate,
     tags,
     lat,
-    lng
+    lng,
+    price,
+    space,
+    address,
+    buildAt,
+    station,
+    ldk
   } = data.contentfulPost
 
   const previous = pageContext.prev
@@ -57,6 +63,12 @@ const PostTemplate = ({ data, pageContext, location }) => {
             timeToRead={body.childMarkdownRemark.timeToRead}
           />
           <PageBody body={body} />
+          <div>{ price } 万円</div>
+          <div>{ space } ㎡</div>
+          <div>{ address }</div>
+          <div>築{ buildAt }</div>
+          <div>{ station }</div>
+          <div>{ ldk }</div>
           <div className="to-contact">
             <Link to="/contact">お問合せ</Link>
           </div>
@@ -103,6 +115,12 @@ export const query = graphql`
       }
       lat
       lng
+      price
+      space
+      address
+      buildAt
+      station
+      ldk
     }
   }
 `

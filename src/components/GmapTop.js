@@ -38,17 +38,17 @@ class GmapTop extends Component {
   }
   render() {
     if (typeof window === 'undefined') {
-      return (<></>)
+      return (<MapContainer></MapContainer>)
     }
 
     return (
-      <LazyLoad once offset={30}>
-        <MapContainer>
+      <MapContainer>
+        <LazyLoad once offset={30}>
           <Map
             google={ window.google }
             style={style}
             containerStyle={style}
-            zoom={ 14 }
+            zoom={ 12 }
             center={{ lat: this.props.lat, lng: this.props.lng }}
             initialCenter={{ lat: this.props.lat, lng: this.props.lng }}
           >
@@ -72,9 +72,9 @@ class GmapTop extends Component {
                 </div>
               </InfoWindow>
             ))}
-            </Map>
-        </MapContainer>
-      </LazyLoad>
+          </Map>
+        </LazyLoad>
+      </MapContainer>
     )
   }
 }

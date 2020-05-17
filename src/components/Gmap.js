@@ -30,11 +30,11 @@ class Gmap extends Component {
   }
   render() {
     if (typeof window === 'undefined') {
-      return (<></>)
+      return (<MapContainer></MapContainer>)
     }
     return (
-      <LazyLoad once offset={30}>
-        <MapContainer>
+      <MapContainer>
+        <LazyLoad once offset={30}>
           <Map
             google={ window.google }
             style={style}
@@ -56,8 +56,8 @@ class Gmap extends Component {
               </div>
             </InfoWindow>
           </Map>
-        </MapContainer>
-      </LazyLoad>
+        </LazyLoad>
+      </MapContainer>
     )
   }
 }
