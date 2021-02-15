@@ -50,7 +50,7 @@ const Footer = () => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          目黒川不動産
+          マンションマップ
         </a>
       </Item>
     </List>

@@ -52,7 +52,7 @@ const Posts = ({ data, pageContext, location }) => {
               <Img fluid={topImage.fluid} alt={topImage.title} />
               <img
                 className="logo-image"
-                src="/images/logo_white_96.jpg"
+                src="/images/log.png"
                 alt="企業ロゴ"
               />
             </div>

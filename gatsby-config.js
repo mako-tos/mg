@@ -18,11 +18,10 @@ try {
 }
 module.exports = {
   siteMetadata: {
-    title: '目黒川不動産',
-    description: '目黒川不動産のHPです',
-    /** TODO FIXME */
-    siteUrl: 'https://study-for-gatsby.netlify.app',
-    image: '/images/logo_white_96.jpg',
+    title: 'マンションマップ',
+    description: 'マンションマップのHPです',
+    siteUrl: 'https://mansionmap-mgr.netlify.app/',
+    image: '/images/log.png',
     menuLinks: [
       {
         name: 'Home',
@@ -84,8 +83,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: '目黒川不動産HP',
-        short_name: '目黒川不動産',
+        name: 'マンションマップ',
+        short_name: 'マンションマップ',
         start_url: '/',
         background_color: '#ffffff',
         theme_color: '#ffffff',
